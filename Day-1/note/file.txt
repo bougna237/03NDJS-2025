@@ -1,0 +1,60 @@
+Différence entre let et const :
+Let et const sont utilisés pour déclarer les variables.
+Let: la variable est modifiable
+Const : la variable n’est pas modifiable
+En JavaScript, les méthodes push() et pop() sont utilisées pour manipuler les tableaux. Lorsqu'elles sont appliquées à un tableau déclaré avec const, elles modifient le contenu du tableau, mais n'affectent pas la variable elle-même (qui reste une référence à cet objet, c'est-à-dire le tableau).
+Exple1 : const arr = [1,2,3] ;
+                arr.push (1)   pour ajouter 1 dans le tableau
+                arr.pop(2)      pour supprimer 2 du tableau
+Exple2 : const tableau = [1, 2, 3];
+               tableau.push(4);  // Ajoute 4 à la fin du tableau
+               console.log(tableau);  //  pour Afficher [1, 2, 3, 4]
+               tableau.pop();  // Supprime le dernier élément (4)
+               console.log(tableau);  // pour Afficher [1, 2, 3]
+Déclaration des objects :  on définit son types, l’accolade au début et a la fin, on lui attribue des instances ( qui peuvent être des valeurs, les tableaux,..) et le ; à la fin
+Const obj = {
+         Instance1 : “value“ ,
+         Instance2 :               ,
+} ;
+Création d’un tableau a deux dimensions :
+Const tableau = [
+[1,2,3],
+{
+Abx : “acv“
+}
+]
+Les boucles :
+Exple1 : For (let i = 0 ;   i<11 ;  i+1){
+               console.log(i) ;
+Exple 2: const nomorline = “SINCLAIR“
+               for (let i = 0 ;   i<nomorline ;  i+1){
+               console.log(i) ;
+Les conditions:
+Exple: let a = 8
+            if (a > 5) {
+           console.log(“positive“);
+           } else if (a>0 && a<5) {
+            console.log(“See you soon“);
+           } else {
+            console.log(“Fail!“);
+            }
+Les fonctions:
+Les  templates:
+Exple : const name = “orline“;
+         console.log(‘Hello ${name}’);
+Les objects destructurés:
+Exple:   const person = {
+                     last_name: “BOUGNA FOTIO“,
+                     first_name:  “SINCLAIR“,
+                     age: 15,
+            }
+           const { last_name, first_name,age} = person
+           console.log (last_name,first_name,age)
+les trois petits points:
+Exple:    function sum(…numbers){
+               return numbers.reduce((total,num)…………………………..
+………………………………………………………………………………………………..
+Les fonctions ES6:  import/Export
+Exple : export const sum =  (a, b)                                        const sum = 
+             import { sum} from “./math.js”;
+             console.log(sum(2,3));
