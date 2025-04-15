@@ -1,0 +1,46 @@
+rRécupération des données de manière asynchrone
+comprendre l'asynchrone dans node.js
+node.js est conçu pour fonctionner de manière asynchrone non bloquante. cela signifie que l'opération comme lire un fichier, faire des requetes HTTP ou interroger une base de données  ne bloquent pas l'exécution du reste du code 
+1. methode pour gérer l'asynchrone
+1.a CALLBACKS 
+javascript
+const fs = require('fs');
+//lire un fichier avec callback
+fs.readfile('fichier.txt', 'utf8', (err,data)=> {
+if (err){
+console.error('erreur:', err)
+return;}
+console.log('contenu du fichier:', data)
+});
+
+1.b PROMESSE(promise)
+javascript
+const fs = require('fs') .promises;
+//avec .theb()/.catch()
+fs.readfile('fichier.txt', 'utf8'
+.then(data=>  {
+console.log('contenu du fichier:', data);
+
+})
+.catch(err=>{
+console.error('erreur:',err);
+
+});
+1.c Async/Awit(recommandé)
+const fs = require('fs').promises;
+
+async function lireFichier() {
+  try {
+    const data = await fs.readFile('fichier.txt', 'utf8');
+    console.log('Contenu du fichier:', data);
+    return data; // Vous pouvez retourner la data
+  } catch (err) {
+    console.error('Erreur:', err);
+    throw err; // Propage l'erreur si nécessaire
+  }
+}
+
+// Appel de la fonction async
+lireFichier()
+  .then(data => console.log('Récupéré:', data))
+  .catch(err => console.error('Erreur attrapée:', err));
