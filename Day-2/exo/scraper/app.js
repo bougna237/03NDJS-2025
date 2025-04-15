@@ -1,44 +1,35 @@
-const https = require('https');
-const cheerio = require('cheerio');
-const fs = require('fs');
+import * as cheerio from 'cheerio';
 
-const url = 'https://www.insee.fr/fr/information/8183122';
+async function getTableData() {
+  try {
+    const $ = await cheerio.fromURL('https://www.insee.fr/fr/information/7619431');
 
-
-https.get(url, (res) => {
-  let data = '';
-
-  res.on('data', (chunk) => {
-    data += chunk;
-  });
-
-  res.on('end', () => {
-    const $ = cheerio.load(data);
     const table = $('table').first();
+
+    if (table.length === 0) {
+      console.log('No table found on the page.');
+      return;
+    }
+
     const headers = [];
-    const rowsData = [];
-
-    // Extract headers
-    table.find('thead tr th').each((i, elem) => {
-      headers.push($(elem).text().trim());
+    table.find('thead tr th').each((i, el) => {
+      headers.push($(el).text().trim());
     });
 
-    // Extract rows
-    table.find('tbody tr').each((i, row) => {
+    const rows = [];
+    table.find('tbody tr').each((rowIndex, row) => {
       const rowData = {};
-      $(row).find('td').each((j, cell) => {
-        rowData[headers[j]] = $(cell).text().trim();
+      $(row).find('td').each((cellIndex, cell) => {
+        rowData[headers[cellIndex]] = $(cell).text().trim();
       });
-      rowsData.push(rowData);
+      rows.push(rowData);
     });
 
-    console.table(rowsData);
+    console.log(rows); 
 
-    // Save to JSON file
-    fs.writeFileSync('recensement_2021_bases.json', JSON.stringify(rowsData, null, 2), 'utf8');
-    console.log('✅ Fichier recensement_2021_bases.json enregistré.');
-  });
+  } catch (error) {
+    console.error('Error fetching or parsing data:', error);
+  }
+}
 
-}).on('error', (err) => {
-  console.error('❌ Erreur : ', err.message);
-});
+getTableData();
