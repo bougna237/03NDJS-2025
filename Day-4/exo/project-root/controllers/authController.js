@@ -88,3 +88,9 @@ exports.loginUser = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
+// Ajoutez cette fonction de validation
+const validateInputs = (email, password) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) throw new Error("Email invalide");
+  if (password.length < 6) throw new Error("Le mot de passe doit faire 6 caractères minimum");
+};
